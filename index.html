@@ -2,10 +2,36 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>Test Homepage</title>
+  <title>Israel Datasets</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; background: #f9f9f9; }
+    .entry { margin-bottom: 1em; padding: 1em; background: #fff; border-radius: 6px; box-shadow: 0 0 4px rgba(0,0,0,0.1); }
+    .entry span { display: block; margin: 0.2em 0; }
+  </style>
 </head>
 <body>
-  <h1>✅ Questa è la homepage HTML</h1>
-  <p>Se stai leggendo questo, significa che GitHub Pages sta mostrando <strong>index.html</strong> e non il README.md.</p>
+  <h1>📊 Vittime registrate</h1>
+  <div id="data"></div>
+
+  <script>
+    fetch("datasets/killed-in-israel.json")
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById("data");
+        data.forEach(entry => {
+          const div = document.createElement("div");
+          div.className = "entry";
+          div.innerHTML = `
+            <span><strong>Nome:</strong> ${entry.name}</span>
+            <span><strong>Età:</strong> ${entry.age}</span>
+            <span><strong>Status:</strong> ${entry.status}</span>
+            <span><strong>Data:</strong> ${entry.date}</span>
+            <span><strong>Luogo:</strong> ${entry.location}</span>
+            <span><strong>Fonte:</strong> ${entry.source}</span>
+          `;
+          container.appendChild(div);
+        });
+      });
+  </script>
 </body>
 </html>
